@@ -1,0 +1,26 @@
+<!-- registration/login.html -->
+<h2>Login</h2>
+
+{% if form.errors %}
+  <div class="errors">
+    <p><strong>Por favor, corrija os seguintes erros:</strong></p>
+    <ul>
+      {% for field in form %}
+        {% for error in field.errors %}
+          <li>{{ field.label }}: {{ error }}</li>
+        {% endfor %}
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}
+
+<!-- Link para a página de cadastro -->
+<p>Não tem uma conta? <a href="{% url 'accounts:register' %}">Cadastre-se aqui</a></p>
+
+<!-- Formulário de login -->
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}  <!-- Renderiza o formulário -->
+  <button type="submit">Entrar</button>
+</form>
+

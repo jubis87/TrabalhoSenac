@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listar Pedidos</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <h1>Pedidos</h1>
+    
+    <!-- Botões para navegação -->
+    <div>
+        <a href="{% url 'cadastro_pedido' %}">
+            <button>Cadastrar Pedido</button>
+        </a>
+        <a href="{% url 'listar_pedidos' %}">
+            <button>Listar Pedidos</button>
+        </a>
+        <a href="{% url 'logout' %}">
+            <button>Deslogar</button>
+        </a>
+    </div>
+
+    <!-- Exibindo os pedidos -->
+    {% if pedidos %}
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Cliente</th>
+                    <th>Data</th>
+                    <th>Detalhes</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pedido in pedidos %}
+                    <tr>
+                        <td>{{ pedido.id }}</td>
+                        <td>{{ pedido.cliente }}</td>
+                        <td>{{ pedido.data_pedido }}</td>
+                        <td><a href="{% url 'detalhes_pedido' pedido.id %}">Ver Detalhes</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Não há pedidos registrados.</p>
+    {% endif %}
+    <a href="{% url 'cadastrar_pedido' %}">Cadastrar Pedido</a>
+    <a href="{% url 'logout' %}">Deslogar</a>
+    
+</body>
+</html>
