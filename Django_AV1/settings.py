@@ -19,8 +19,8 @@ ALLOWED_HOSTS = []
 
 
 # settings.py
-LOGIN_REDIRECT_URL = '/'  # Redireciona o usuário após o login bem-sucedido
-LOGOUT_REDIRECT_URL = '/'  # Redireciona o usuário após o logout
+LOGIN_REDIRECT_URL = '/dashboard/'  # Defina o redirecionamento para o dashboard após o login
+LOGIN_URL = '/login/'  # Caso o usuário não esteja autenticado, redireciona para a página de login
 
 # Em settings.py
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # A configuração de armazenamento de sessão padrão
@@ -67,6 +67,10 @@ TEMPLATES = [
             ],
         },
     },
+]
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
 ]
 
 

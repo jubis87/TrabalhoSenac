@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Clientes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 70%;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .client-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .client-item {
+            background-color: #f9f9f9;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .client-item:hover {
+            background-color: #e9ecef;
+        }
+
+        .client-item i {
+            margin-left: 10px;
+            color: #007BFF;
+        }
+
+        .no-clients {
+            text-align: center;
+            color: #666;
+            font-size: 1.2em;
+        }
+
+        .nav {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            font-size: 1.2em;
+            color: #007BFF;
+            transition: color 0.3s ease;
+        }
+
+        .nav a:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Lista de Clientes</h1>
+
+    <ul class="client-list">
+        {% for cliente in clientes %}
+            <li class="client-item">
+                <span>{{ cliente.nome }} - {{ cliente.email }}</span>
+                <a href="mailto:{{ cliente.email }}">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </li>
+        {% empty %}
+            <li class="no-clients">Não há clientes cadastrados.</li>
+        {% endfor %}
+    </ul>
+
+    <div class="nav">
+        <a href="{% url 'dashboard' %}">Voltar para o Dashboard</a>
+        <a href="{% url 'cadastrar_cliente' %}">Cadastrar Novo Cliente</a>
+    </div>
+</div>
+
+</body>
+</html>

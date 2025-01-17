@@ -4,14 +4,83 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Minha Aplicação Django{% endblock %}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #1e1e1e;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        header nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        header nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        header nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1em;
+            transition: color 0.3s ease;
+        }
+
+        header nav ul li a:hover {
+            color: #4caf50;
+        }
+
+        main {
+            padding: 20px;
+            background-color: #fff;
+            margin: 20px auto;
+            max-width: 1200px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            header nav ul li {
+                display: block;
+                margin-bottom: 10px;
+            }
+
+            header nav ul li a {
+                font-size: 1em;
+            }
+
+            main {
+                padding: 15px;
+            }
+        }
+    </style>
 </head>
 <body>
+
     <header>
         <nav>
             <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="{% url 'login' %}">Login</a></li>
-                <li><a href="{% url 'register' %}">Registrar</a></li>
+                <li><a href="/">Início</a></li>
+                <li><a href="{% url 'login' %}">Entrar</a></li>
+                <li><a href="{% url 'register' %}">Cadastrar-se</a></li>
             </ul>
         </nav>
     </header>
@@ -20,5 +89,6 @@
         {% block content %}
         {% endblock %}
     </main>
+
 </body>
 </html>

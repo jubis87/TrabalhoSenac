@@ -1,0 +1,33 @@
+<!-- gerenciamento_pedidos/atualizar_estoque.html -->
+{% extends 'base_generic.html' %}
+
+{% block content %}
+  <h1>Atualizar Estoque</h1>
+
+  {% if messages %}
+    <ul>
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}  <!-- Exibe os campos do formulário -->
+    <button type="submit">Atualizar Estoque</button>
+  </form>
+
+  <h2>Produtos</h2>
+  <ul>
+    {% for produto in produtos %}
+      <li>{{ produto.nome }} - Estoque: {{ produto.estoque }}</li>
+    {% endfor %}
+  </ul>
+
+  <!-- Botão para retornar à Dashboard -->
+  <div>
+    <a href="{% url 'dashboard' %}" class="btn-back">Voltar para a Dashboard</a>
+  </div>
+
+{% endblock %}

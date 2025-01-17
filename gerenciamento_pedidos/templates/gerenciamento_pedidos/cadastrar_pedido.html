@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Pedido</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .form-container {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .form-container input, .form-container select, .form-container button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .form-container button {
+            background-color: #28a745;
+            color: white;
+            font-size: 1.2em;
+        }
+
+        .form-container button:hover {
+            background-color: #218838;
+        }
+
+        .nav {
+            text-align: center;
+        }
+
+        .nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            font-size: 1.2em;
+            color: #007BFF;
+        }
+
+        .nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Cadastrar Pedido</h1>
+
+    <div class="form-container">
+        <form method="post">
+            {% csrf_token %}
+            
+            <!-- Formulário do Pedido -->
+            <h2>Informações do Pedido</h2>
+            {{ pedido_form.as_p }}
+
+            <!-- Formulário dos Itens -->
+            <h2>Itens do Pedido</h2>
+            {{ item_formset.management_form }}
+            {% for form in item_formset %}
+                <div class="form-item">
+                    {{ form.as_p }}
+                </div>
+            {% endfor %}
+
+            <button type="submit">Cadastrar Pedido</button>
+        </form>
+    </div>
+
+    <!-- Links de navegação -->
+    <div class="nav">
+        <a href="{% url 'listar_pedidos' %}">Listar Pedidos</a>
+        <a href="{% url 'listar_clientes' %}">Listar Clientes</a>
+        <a href="{% url 'listar_produtos' %}">Listar Produtos</a>
+        <a href="{% url 'dashboard' %}">Dashboard</a>
+    </div>
+</div>
+
+</body>
+</html>

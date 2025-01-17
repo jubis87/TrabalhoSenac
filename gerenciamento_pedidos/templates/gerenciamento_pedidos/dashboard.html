@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Gerenciamento de Pedidos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* Estilos básicos para a Dashboard */
+        body {
+            background-color: #f4f4f4;
+            color: #333;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .card {
+            display: inline-block;
+            width: 22%;
+            margin-right: 2%;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            color: #333;
+        }
+
+        .card h3 {
+            margin: 10px 0;
+            font-size: 1.2em;
+        }
+
+        .card .value {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        /* Barra de navegação animada */
+        .nav {
+            margin-top: 30px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav a {
+            text-decoration: none;
+            font-size: 1.2em;
+            color: #007BFF;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .nav a:hover {
+            background-color: #007BFF;
+            color: #fff;
+            transform: scale(1.1);
+        }
+
+        /* Estilo para o formulário de cadastro */
+        .form-container {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container input, .form-container select, .form-container button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fff;
+            color: #333;
+        }
+
+        .form-container input:focus, .form-container select:focus, .form-container button:focus {
+            border-color: #007BFF;
+            outline: none;
+        }
+
+        .form-container button {
+            background-color: #007BFF;
+            color: white;
+            font-size: 1.2em;
+        }
+
+        .form-container button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Estilo de links internos */
+        .form-container a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+
+        .form-container a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Dashboard - Gerenciamento de Pedidos</h1>
+
+    <div class="card">
+        <i class="fas fa-box"></i>
+        <h3>Total de Pedidos</h3>
+        <p class="value">{{ total_pedidos }}</p>
+    </div>
+    <div class="card">
+        <i class="fas fa-users"></i>
+        <h3>Total de Clientes</h3>
+        <p class="value">{{ total_clientes }}</p>
+    </div>
+    <div class="card">
+        <i class="fas fa-cogs"></i>
+        <h3>Total de Produtos</h3>
+        <p class="value">{{ total_produtos }}</p>
+    </div>
+    <div class="card">
+        <i class="fas fa-dollar-sign"></i>
+        <h3>Valor Total de Pedidos</h3>
+        <p class="value">R$ {{ valor_total_pedidos|floatformat:2 }}</p>
+    </div>
+
+    <!-- Formulário para criar novo item (exemplo de item de pedido) -->
+    <div class="form-container">
+        <h2>Cadastrar Novo Item</h2>
+
+        <!-- Links para cadastrar itens dos pedidos -->
+        {% for pedido in pedidos %}
+            <p>{{ pedido.cliente.nome }} - 
+                <a href="{% url 'cadastrar_item' pedido_id=pedido.id %}">Cadastrar Item</a>
+            </p>
+        {% endfor %}
+
+        <form method="post">
+            {% csrf_token %}
+            <label for="produto">Produto:</label>
+            <select name="produto" id="produto">
+                {% for produto in produtos %}
+                    <option value="{{ produto.id }}">{{ produto.nome }}</option>
+                {% endfor %}
+            </select>
+            
+            <label for="quantidade">Quantidade:</label>
+            <input type="number" name="quantidade" id="quantidade" required min="1">
+            
+            <label for="pedido">Pedido:</label>
+            <select name="pedido" id="pedido">
+                {% for pedido in pedidos %}
+                    <option value="{{ pedido.id }}">{{ pedido.cliente.nome }} - {{ pedido.data_pedido }}</option>
+                {% endfor %}
+            </select>
+
+            <button type="submit">Cadastrar Item</button>
+        </form>
+    </div>
+
+    <!-- Barra de navegação animada -->
+    <div class="nav">
+        <a href="{% url 'listar_pedidos' %}">Pedidos</a>
+        <a href="{% url 'listar_clientes' %}">Clientes</a>
+        <a href="{% url 'listar_produtos' %}">Produtos</a>
+        <a href="{% url 'cadastrar_pedido' %}">Cadastrar Pedido</a>
+        <a href="{% url 'cadastrar_cliente' %}">Cadastrar Cliente</a>
+        <a href="{% url 'cadastrar_produto' %}">Cadastrar Produto</a>
+        <a href="{% url 'atualizar_estoque' %}">Atualizar Estoque</a>
+    </div>
+</div>
+
+</body>
+</html>

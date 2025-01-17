@@ -1,8 +1,91 @@
-<h2>Cadastro de Novo Usuário</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}  <!-- Renderiza o formulário -->
-  <button type="submit">Cadastrar</button>
-</form>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Novo Usuário</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
 
-<p>Já tem uma conta? <a href="{% url 'login' %}">Faça login aqui</a></p>
+        .container {
+            width: 100%;
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #007bff;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        form input, form select, form button {
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        form button {
+            background-color: #007bff;
+            color: white;
+            font-size: 1.2em;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        form button:hover {
+            background-color: #0056b3;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .login-link a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Cadastro de Novo Usuário</h2>
+
+        <!-- Formulário de cadastro -->
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}  <!-- Renderiza o formulário -->
+            <button type="submit">Cadastrar</button>
+        </form>
+
+        <!-- Link para a página de login -->
+        <div class="login-link">
+            <p>Já tem uma conta? <a href="{% url 'login' %}">Faça login aqui</a></p>
+        </div>
+    </div>
+
+</body>
+</html>
